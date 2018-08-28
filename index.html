@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title> WYSL</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+	<link rel="stylesheet" href="league.css">
+
+	<link rel="apple-touch-icon" sizes="57x57" href="img/favicons/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="img/favicons/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="img/favicons/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="img/favicons/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="img/favicons/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="img/favicons/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="img/favicons/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="img/favicons/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="img/favicons/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="img/favicos/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="img/favicons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="img/favicons/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="img/favicons/favicon-16x16.png">
+	<link rel="manifest" href="img/favicons/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="img/favicons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+	<div id="app">
+		<!-- The WYSL LOGO AND LOGIN/LOGOUT BUTTON (they will be shown in all the pages)-->
+		<div class="upperMenu">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-8">
+						<img src="img/logos/WYSL.png" alt="logos" class="img-responsive" onclick="hideAndShow('first')">
+					</div>
+					<div class="col-xs-4">
+						<button class="buttonB" id="logInButton" onclick="hideAndShow('second')">Log in</button>
+						<button class="buttonB" id="logOutButton" v-on:click="logOut"> Log out </button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- First= MAIN PAGE-->
+		<div data-pages="hide" id="first">
+			<div class="container">
+				<div class="info">
+					<p id="text"> Discover the latest scores of the WYSL! </p>
+				</div>
+			</div>
+			<div class="row logos">
+				<div class="col-xs-6" v-for="team in teams">
+					<img class="logo1" v-bind:src="'img/logos/' +team.logo" alt="logo1">
+				</div>
+			</div>
+		</div>
+		<!--Second= SIGN IN/LOG IN with email/ Login with google-->
+		<div data-pages="hide" id=second>
+			<div class="info">
+				<p> Login to participe in our chat! </p>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="box form">
+						<div class="fields">
+							<div class="row input1">
+								<label class="col-xs-12"> Email: </label>
+								<input class="information col-xs-12" type="email" name="mail">
+							</div>
+							<div class="row input1">
+								<label class="col-xs-12"> Password: </label>
+								<input class="information col-xs-12" type="password" name="password">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-6 signIn">
+								<button id="signIN" class="btn-primary" onclick="hideAndShow('third')">Sign In</button>
+							</div>
+							<div class="col-xs-6 signIn ">
+								<button class="buttonB" id="logInB">Log in</button>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<img src="img/signGoogle.PNG" class="img-responsive is-info" alt="signING" id="loginChat">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Third: Login form for the chat (sign up with email)-->
+
+		<div data-pages="hide" id="third">
+			<div class="container">
+				<div class="info">
+					<p> Fill up the form and participate on the WYSL chat </p>
+				</div>
+				<div class="form2">
+					<div class="fields2">
+						<div class="row">
+							<div class="col-xs-12 input1">
+								<label class="col-xs-5"> Name: </label>
+								<input class="col-xs-5 short" type="text" name="name">
+							</div>
+							<div class="col-xs-12 input1">
+								<label class="col-xs-5"> Email: </label>
+								<input class="col-xs-5 short" type="text" name="email">
+							</div>
+							<div class="col-xs-12 input1">
+								<label class="col-xs-5"> Team: </label>
+								<input class="col-xs-5 short" type="text" name="Team">
+							</div>
+							<div class="col-xs-12 input1">
+								<label class="col-xs-5"> Password: </label>
+								<input class="col-xs-5 short" type="text" name="Password">
+							</div>
+							<div class="col-xs-12 input1"> <label class="col-xs-5"> Repeat Password:</label>
+								<input class="col-xs-5 short" type="text" name="Repeat Password">
+							</div>
+						</div>
+					</div>
+					<div class="signIn">
+						<button v-on:click="signIN" class="signIn btn-primary"> Sign In</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--Fourth: TEAMS, logos, upcoming matches for that team-->
+		<div data-pages="hide" id="fourth">
+			<div class="container">
+				<div class="info">
+					<p> Teams </p>
+				</div>
+
+				<div class="row teams" v-for="team in teams">
+					<div class="col-xs-4 name">{{team.name}}</div>
+					<div class="col-xs-4"> <img class="logo" alt="logo" v-bind:src="'img/logos/' +team.logo"></div>
+					<button class="col-xs-4 btn-primary" v-on:click="getUpcoming(team.name)"> Next matches </button>
+				</div>
+				<div>
+					<button class="fullGameB col-xs-12 btn-primary" onclick="hideAndShow('fifth')"> Full Game Schedule</button>
+				</div>
+			</div>
+		</div>
+		<!--Fifth: Full game schedule -->
+		<div data-pages="hide" id="fifth">
+			<div class="container">
+				<div class="row scroll">
+					<div class="info">
+						<p> FULL GAME SCHEDULE </p>
+					</div>
+					<div style="overflow-x:auto;">
+						<table class="gameTable redTable">
+							<thead>
+								<tr>
+									<th> Team A </th>
+									<th> Team B </th>
+									<th> Location</th>
+									<th> Date </th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="match in matches">
+									<td> {{match.Team_a}} </td>
+									<td> {{match.Team_b}} </td>
+									<td v-on:click="getLocation(match.location)"> {{locations[match.location].location_name}} </td>
+									<td> {{match.date}} </td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Sixth: ONLY INFO FOR 1 team THE 4 UPCOMING MATCHES  -->
+		<div data-pages="hide" id="sixth">
+			<div class="container">
+				<div class="info">
+					<p> GAME SCHEDULE </p>
+				</div>
+				<div class="row upcoming scroll">
+					<div class="col-sm-6 col-xs-12" v-for="match in teamUpcomingGames">
+						<div class="dateVS">
+							<div class="col-xs-12 teamAB">
+								<div class="teamA ">{{match.Team_a}}</div>
+								<p> VS</p>
+								<div class="teamB">{{match.Team_b}}</div>
+							</div>
+							<div class="date col-xs-12">{{match.date}}</div>
+						</div>
+						<div class="location"> <iframe v-bind:src="locations[match.location].url" ></iframe></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--  Seventh: SPECIFIC LOCATIONS, map with one location-->
+		<div data-pages="hide" id="seventh">
+			<div class="container">
+				<div class="info">
+					<p id="stadium"> LOCATION </p>
+				</div>
+				<div class="specificLocation scroll">
+					<div class="locationName"> {{specificLocation.location_name}} </div>
+					<div> <iframe v-bind:src="specificLocation.url"></iframe> </div>
+				</div>
+			</div>
+		</div>
+		<!-- Eighth: CLASSIFICATION TABLE-->
+		<div data-pages="hide" id="eighth">
+			<div class="container">
+				<div class="info">
+					<p> Classification </p>
+				</div>
+				<div class="scroll" style="overflow-x:auto;">
+					<table class="classTable redTable">
+						<thead>
+							<tr>
+								<th> Position</th>
+								<th> Team </th>
+								<th> Points </th>
+								<th> Win </th>
+								<th> Draw</th>
+								<th>Lost</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="team, key in leaderBoard">
+								<td> {{key+1}} </td>
+								<td>{{team.name}} </td>
+								<td>{{team.points}}</td>
+								<td>{{team.won}}</td>
+								<td>{{team.draw}}</td>
+								<td>{{team.lost}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- Ninth:  Map with pins for all locations-->
+		<div data-pages="hide" id="ninth">
+			<div class="container">
+				<div class="info">
+					<p id="center"> LOCATIONS </p>
+				</div>
+				<div id="map" style="width: 100%; height: 350px;"></div>
+			</div>
+		</div>
+		<div data-pages="hide" class="styleChat chat" id="tenth">
+			<div class="container scroll">
+				<div id="posts" class="box">
+					Loading posts...
+				</div>
+				<div class="row ">
+					<div class="inputs">
+						<input id="textInput" class="input" type="text" placeholder="Your message...">
+						<button id="create-post" class="button is-primary">Send</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Bottom Navigation Bar-->
+		<div class=bottomMenu>
+			<div class="row navbar">
+				<a href="#home" class="active col-xs-3" onclick="hideAndShow('fourth')"> Teams</a>
+				<a href="#news" class="col-xs-3" onclick="hideAndShow('ninth')">Locations </a>
+				<a href="#contact" class="col-xs-4" onclick="hideAndShow('eighth')">Classification</a>
+				<a href="#contact" class="col-xs-2" onclick="hideAndShow('tenth')"><img id="chat" alt="chat" src="img/logos/chat.png"></a>
+			</div>
+		</div>
+	</div>
+	<!-- update the version number as needed -->
+	<script defer src="/__/firebase/5.2.0/firebase-app.js"></script>
+	<!-- include only the Firebase features as you need -->
+	<script defer src="/__/firebase/5.2.0/firebase-auth.js"></script>
+	<script defer src="/__/firebase/5.2.0/firebase-database.js"></script>
+	<script defer src="/__/firebase/5.2.0/firebase-messaging.js"></script>
+	<script defer src="/__/firebase/5.2.0/firebase-storage.js"></script>
+	<!-- initialize the SDK after all desired features are loaded -->
+	<script defer src="/__/firebase/init.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<!--CODE FOR THE CHAT-->
+	<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyDoaIB605PY3IoM4ed2RNgUzeeBK-qZJxg",
+			authDomain: "webapp-c9c2f.firebaseapp.com",
+			databaseURL: "https://webapp-c9c2f.firebaseio.com",
+			projectId: "webapp-c9c2f",
+			storageBucket: "webapp-c9c2f.appspot.com",
+			messagingSenderId: "100618345235"
+		};
+		firebase.initializeApp(config);
+	</script>
+	<!--SCRIPTS-->
+	<script src="league.js"></script>
+	<script src="league1.js"></script>
+	<script src="chat.js"></script>
+</body>
+</html>
